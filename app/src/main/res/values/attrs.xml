@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CounterView">
+        <attr name="countText" format="string|reference"/>
+        <attr name="labelText" format="string|reference"/>
+    </declare-styleable>
+</resources>

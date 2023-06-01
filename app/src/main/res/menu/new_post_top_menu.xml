@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/ok_button"
+        android:title="@string/create_post"
+        android:icon="@drawable/round_done_36"
+        app:showAsAction="ifRoom"/>
+
+</menu>

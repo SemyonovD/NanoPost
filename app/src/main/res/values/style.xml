@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--avatars shapeable-->
+    <style name="circular" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+    <!--images shapeable in images_content-->
+    <style name="rounded" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+    <style name="card_corners" parent="">
+        <item name="cardCornerRadius">16dp</item>
+    </style>
+</resources>

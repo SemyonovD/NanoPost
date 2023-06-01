@@ -1,0 +1,31 @@
+<resources xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Base application theme. -->
+    <style name="Theme.NanoPost" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/lightPrimary</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/lightPrimaryContainer</item>
+        <item name="colorOnPrimaryContainer">#002204</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/lightSecondary</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">?attr/colorOnPrimary</item>
+        <item name="colorSecondaryContainer">@color/lightSecondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/lightOnSecondaryContainer</item>
+        <item name="colorOnBackground">@color/lightOnSurface</item>
+        <item name="android:colorBackground">@color/lightSurface</item>
+        <item name="colorSurface">@color/lightSurface</item>
+        <item name="colorOnSurface">@color/lightOnSurface</item>
+        <item name="colorSurfaceVariant">@color/lightSurfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/lightOnSurfaceVariant</item>
+        <item name="colorOutline">@color/lightOutline</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <!-- Customize your theme here. -->
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
+
+</resources>
