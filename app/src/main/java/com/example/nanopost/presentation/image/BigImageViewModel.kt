@@ -20,6 +20,9 @@ class BigImageViewModel @Inject constructor(
     private val _imageLiveData = MutableLiveData<Image?>()
     val imageLiveData: LiveData<Image?> = _imageLiveData
 
+    private val _deleteResponseLiveData = MutableLiveData<Boolean?>()
+    val deleteResponseLiveData: LiveData<Boolean?> = _deleteResponseLiveData
+
     fun getImage(imageId: String) {
         viewModelScope.launch {
             _imageLiveData.value = getImageUseCase(imageId)
@@ -28,7 +31,7 @@ class BigImageViewModel @Inject constructor(
 
     fun deleteImage() {
         viewModelScope.launch {
-            _imageLiveData.value?.let { deleteImageUseCase(it.id) }
+            _imageLiveData.value?.let { _deleteResponseLiveData.value = deleteImageUseCase(it.id) }
         }
     }
 }

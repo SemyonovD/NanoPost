@@ -22,14 +22,29 @@ class PostFragment : Fragment(R.layout.fragment_post) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.placeholder0.visibility = View.GONE
+        binding.placeholder1.visibility = View.GONE
+        binding.placeholder2.visibility = View.GONE
+        binding.placeholder3.visibility = View.GONE
+
         viewModel.getPost(args.postId)
+
+        viewModel.deleteResponseLiveData.observe(viewLifecycleOwner) {
+            if (it == true) {
+                findNavController().popBackStack()
+            }
+        }
 
         viewModel.postLiveData.observe(viewLifecycleOwner) { post ->
             if (post != null) {
                 if (post.owner.avatarUrl == null) {
                     post.owner.displayName?.get(0).let {
                         binding.letterAvatar.text = it.toString()
+                        binding.letterAvatar.visibility = View.VISIBLE
                     }
+                } else {
+                    binding.avatar.load(post.owner.avatarUrl)
+                    binding.letterAvatar.visibility = View.GONE
                 }
                 binding.dateTimeField.text = post.dateCreated
                 binding.displayNameField.text = post.owner.displayName
@@ -40,10 +55,23 @@ class PostFragment : Fragment(R.layout.fragment_post) {
                     binding.postTextField.visibility = View.GONE
                 }
                 binding.likeButton.text = post.likes.likesCount.toString()
-                binding.placeholder1.load(post.images.getOrNull(0)?.sizes?.getOrNull(0)?.url)
-                binding.placeholder2.load(post.images.getOrNull(1)?.sizes?.getOrNull(0)?.url)
-                binding.placeholder3.load(post.images.getOrNull(2)?.sizes?.getOrNull(0)?.url)
-                binding.placeholder4.load(post.images.getOrNull(3)?.sizes?.getOrNull(0)?.url)
+
+                post.images.getOrNull(0)?.sizes?.getOrNull(0)?.url?.let {
+                    binding.placeholder0.load(it)
+                    binding.placeholder0.visibility = View.VISIBLE
+                }
+                post.images.getOrNull(1)?.sizes?.getOrNull(0)?.url?.let {
+                    binding.placeholder1.load(it)
+                    binding.placeholder1.visibility = View.VISIBLE
+                }
+                post.images.getOrNull(2)?.sizes?.getOrNull(0)?.url?.let {
+                    binding.placeholder2.load(it)
+                    binding.placeholder2.visibility = View.VISIBLE
+                }
+                post.images.getOrNull(3)?.sizes?.getOrNull(0)?.url?.let {
+                    binding.placeholder3.load(it)
+                    binding.placeholder3.visibility = View.VISIBLE
+                }
 
                 binding.avatar.setOnClickListener {
                     val action = PostFragmentDirections.actionPostFragmentToProfileFragment(post.owner.id)
@@ -56,7 +84,7 @@ class PostFragment : Fragment(R.layout.fragment_post) {
             when (menuItem.itemId) {
                 R.id.delete_button -> {
                     viewModel.deletePost()
-                    findNavController().popBackStack()
+
                     true
                 }
                 else -> false

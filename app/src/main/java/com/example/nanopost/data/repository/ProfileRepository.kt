@@ -12,11 +12,11 @@ interface ProfileRepository {
         displayName: String?,
         bio: String?,
         avatar: Uri?
-    )
+    ): Boolean
 
-    suspend fun subscribeProfile(profileId: String)
+    suspend fun subscribeProfile(profileId: String): Boolean
 
-    suspend fun unsubscribeProfile(profileId: String)
+    suspend fun unsubscribeProfile(profileId: String): Boolean
 
 
 }

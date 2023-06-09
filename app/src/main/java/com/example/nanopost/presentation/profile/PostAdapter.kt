@@ -33,7 +33,7 @@ class PostAdapter : PagingDataAdapter<Post, PostAdapter.ViewHolder>(DiffCallback
         private val binding by viewBinding(PostItemBinding::bind)
 
         fun bind(item: Post) = with(binding) {
-            val urll = item.images.getOrNull(0)?.sizes?.getOrNull(1)?.url
+            val urll = item.images.getOrNull(0)?.sizes?.getOrNull(0)?.url
             if (urll != null) {
                 placeholder1.load(urll)
             } else {

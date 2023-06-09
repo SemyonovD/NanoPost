@@ -1,7 +1,6 @@
 package com.example.nanopost.data.api
 
-import com.example.nanopost.data.module.NetworkModule
-import com.example.nanopost.data.module.NetworkModule.convertLongToTime
+import com.example.nanopost.data.convertLongToTime
 import com.example.nanopost.domen.models.Image
 import kotlinx.serialization.Serializable
 
@@ -15,7 +14,7 @@ data class ApiImage(
     fun toImage(): Image = Image(
         id = id,
         owner = owner.toProfileCompact(),
-        dateCreated = convertLongToTime(dateCreated),
+        dateCreated = dateCreated.convertLongToTime(),
         sizes = sizes.map { it.toImageSize() }
     )
 }

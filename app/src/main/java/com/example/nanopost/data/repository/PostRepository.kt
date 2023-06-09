@@ -13,7 +13,7 @@ interface PostRepository {
 
     suspend fun getPost(postId: String): Post
 
-    suspend fun createPost(post: UploadPost)
+    suspend fun createPost(post: UploadPost): Post
 
     suspend fun deletePost(postId: String):Boolean
 

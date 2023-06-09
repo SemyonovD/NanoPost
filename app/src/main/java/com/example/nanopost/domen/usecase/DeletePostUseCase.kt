@@ -6,7 +6,6 @@ import javax.inject.Inject
 class DeletePostUseCase @Inject constructor(
     private val postRepository: PostRepository
 ) {
-
     suspend operator fun invoke(postId: String):Boolean {
         return postRepository.deletePost(postId)
     }

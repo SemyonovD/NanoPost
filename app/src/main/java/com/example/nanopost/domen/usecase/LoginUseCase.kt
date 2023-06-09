@@ -8,9 +8,10 @@ class LoginUseCase @Inject constructor(
     private val loginRepository: LoginRepository,
     private val preferencesRepository: PreferencesRepository,
 ) {
-    suspend operator fun invoke(username: String, password: String) {
+    suspend operator fun invoke(username: String, password: String): String {
         val response = loginRepository.login(username, password)
         preferencesRepository.addToken(response.token)
         preferencesRepository.addProfileId(response.userId)
+        return response.error
     }
 }

@@ -6,7 +6,7 @@ import javax.inject.Inject
 class UnsubscribeProfileUseCase @Inject constructor(
     private val profileRepository: ProfileRepository
 ) {
-    suspend operator fun invoke(profileId: String) {
-        profileRepository.unsubscribeProfile(profileId)
+    suspend operator fun invoke(profileId: String): Boolean {
+        return profileRepository.unsubscribeProfile(profileId)
     }
 }

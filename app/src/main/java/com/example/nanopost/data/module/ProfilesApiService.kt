@@ -33,7 +33,7 @@ interface ProfilesApiService {
         @Part displayName: MultipartBody.Part? = null,
         @Part bio: MultipartBody.Part? = null,
         @Part avatar: MultipartBody.Part? = null,
-    )
+    ): ResultResponse
 
     @PUT("profile/{profileId}/subscribe")
     suspend fun subscribeProfile(
@@ -43,6 +43,6 @@ interface ProfilesApiService {
     @DELETE("profile/{profileId}/subscribe")
     suspend fun unsubscribeProfile(
         @Path("profileId") profileId: String
-    )
+    ): ResultResponse
 
 }

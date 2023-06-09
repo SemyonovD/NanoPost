@@ -1,7 +1,6 @@
 package com.example.nanopost.data.module
 
 import android.content.Context
-import android.content.SharedPreferences
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.example.nanopost.data.repository.PreferencesRepository
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
@@ -15,7 +14,6 @@ import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Qualifier
 import javax.inject.Singleton
@@ -48,21 +46,6 @@ object NetworkModule {
     private val contentType = "application/json".toMediaType()
     private val BASE_URL = "https://nanopost.evolitist.com/api/v1/"
     private val BASE_URL_AUTH = "https://nanopost.evolitist.com/api/"
-
-    @Provides
-    @Singleton
-    fun convertLongToTime (time: Long): String {
-        val date = Date(time)
-        return SimpleDateFormat("MMM.dd yyyy hh:mm:ss").format(date)
-    }
-
-    @Provides
-    @Singleton
-    fun provideSharedPref(
-        @ApplicationContext appContext: Context
-    ): SharedPreferences {
-        return appContext.getSharedPreferences("SharedPref", Context.MODE_PRIVATE)
-    }
 
     @Provides
     @Singleton

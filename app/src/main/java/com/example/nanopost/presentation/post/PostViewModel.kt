@@ -20,6 +20,9 @@ class PostViewModel @Inject constructor(
     private val _postLiveData = MutableLiveData<Post?>()
     val postLiveData: LiveData<Post?> = _postLiveData
 
+    private val _deleteResponseLiveData = MutableLiveData<Boolean?>()
+    val deleteResponseLiveData: LiveData<Boolean?> = _deleteResponseLiveData
+
     fun getPost(postId: String) {
         viewModelScope.launch {
             _postLiveData.value = getPostUseCase(postId)
@@ -28,7 +31,7 @@ class PostViewModel @Inject constructor(
 
     fun deletePost() {
         viewModelScope.launch {
-            _postLiveData.value?.let { deletePostUseCase(it.id) }
+            _postLiveData.value?.let { _deleteResponseLiveData.value = deletePostUseCase(it.id) }
         }
     }
 }

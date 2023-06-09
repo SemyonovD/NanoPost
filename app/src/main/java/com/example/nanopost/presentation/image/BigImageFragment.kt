@@ -23,6 +23,12 @@ class BigImageFragment: Fragment(R.layout.fragment_big_image) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getImage(args.imageId)
 
+        viewModel.deleteResponseLiveData.observe(viewLifecycleOwner) {
+            if (it == true) {
+                findNavController().popBackStack()
+            }
+        }
+
         viewModel.imageLiveData.observe(viewLifecycleOwner) { image ->
             if (image != null) {
                 val image1 = image.sizes[0].url
@@ -46,7 +52,6 @@ class BigImageFragment: Fragment(R.layout.fragment_big_image) {
             when (menuItem.itemId) {
                 R.id.delete_button -> {
                     viewModel.deleteImage()
-                    findNavController().popBackStack()
                     true
                 }
                 else -> false

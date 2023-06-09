@@ -1,7 +1,7 @@
 package com.example.nanopost.data.api
 
+import com.example.nanopost.data.convertLongToTime
 import com.example.nanopost.domen.models.Post
-import com.example.nanopost.data.module.NetworkModule.convertLongToTime
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -16,7 +16,7 @@ data class ApiPost(
     fun toPost():Post = Post(
         id = id,
         owner = owner.toProfileCompact(),
-        dateCreated = convertLongToTime(dateCreated),
+        dateCreated = dateCreated.convertLongToTime(),
         text = text,
         images = images.map{ it.toImage() },
         likes = likes.toLikes(),

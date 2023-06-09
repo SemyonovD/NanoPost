@@ -30,9 +30,60 @@ class CreatePostFragment: Fragment(R.layout.fragment_create_post) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.imageUriLiveData.observe(viewLifecycleOwner) { uri ->
-            if (uri != null) {
-                binding.pickedImage.load(uri)
+        binding.addImageButton.visibility = View.VISIBLE
+        binding.pickedImagesContainers.visibility = View.GONE
+
+        viewModel.postResponseLiveData.observe(viewLifecycleOwner) {
+            if (it != null) {
+                findNavController().popBackStack()
+            }
+        }
+
+        viewModel.imageListLiveData.observe(viewLifecycleOwner) { list ->
+            if (list != null) {
+                if (list.size == 4) {
+                    binding.addImageButton.visibility = View.GONE
+                } else {
+                    binding.addImageButton.visibility = View.VISIBLE
+                }
+                list.getOrNull(0).let {
+                    if (it != null) {
+                        binding.pickedImage0.load(it)
+                        binding.pickedImagesContainers.visibility = View.VISIBLE
+                        binding.pickedImageContainer0.visibility = View.VISIBLE
+
+                    } else {
+                        binding.pickedImageContainer0.visibility = View.GONE
+                        binding.pickedImagesContainers.visibility = View.GONE
+                    }
+                }
+                list.getOrNull(1).let {
+                    if (it != null) {
+                        binding.pickedImage1.load(it)
+                        binding.pickedImageContainer1.visibility = View.VISIBLE
+                    } else {
+                        binding.pickedImageContainer1.visibility = View.GONE
+                    }
+
+                }
+                list.getOrNull(2).let {
+                    if (it != null) {
+                        binding.pickedImage2.load(it)
+                        binding.pickedImageContainer2.visibility = View.VISIBLE
+                    } else {
+                        binding.pickedImageContainer2.visibility = View.GONE
+                    }
+
+                }
+                list.getOrNull(3).let {
+                    if (it != null) {
+                        binding.pickedImage3.load(it)
+                        binding.pickedImageContainer3.visibility = View.VISIBLE
+                    } else {
+                        binding.pickedImageContainer3.visibility = View.GONE
+                    }
+
+                }
             }
         }
 
@@ -44,15 +95,24 @@ class CreatePostFragment: Fragment(R.layout.fragment_create_post) {
             )
         }
 
-        binding.deleteImageButton.setOnClickListener {
-            viewModel.deleteImageUri()
+        binding.deleteImageButton0.setOnClickListener {
+            viewModel.deleteImageUri(0)
+        }
+        binding.deleteImageButton1.setOnClickListener {
+            viewModel.deleteImageUri(1)
+        }
+        binding.deleteImageButton2.setOnClickListener {
+            viewModel.deleteImageUri(2)
+        }
+        binding.deleteImageButton3.setOnClickListener {
+            viewModel.deleteImageUri(3)
         }
 
         binding.toolbar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.ok_button -> {
                     viewModel.createPost(binding.enterTextField.text.toString())
-                    findNavController().popBackStack()
+                    //findNavController().popBackStack()
                     true
                 }
                 else -> false

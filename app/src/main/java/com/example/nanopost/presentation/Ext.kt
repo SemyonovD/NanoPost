@@ -9,5 +9,3 @@ fun ViewGroup.inflate(
     @LayoutRes layoutId: Int,
 ): View = LayoutInflater.from(context)
     .inflate(layoutId, this, false)
-
-

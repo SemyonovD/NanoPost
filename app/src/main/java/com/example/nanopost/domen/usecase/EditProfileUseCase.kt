@@ -12,8 +12,8 @@ class EditProfileUseCase @Inject constructor(
         displayName: String?,
         bio: String?,
         avatar: Uri?
-    ) {
-        profileRepository.editProfile(
+    ): Boolean {
+        return profileRepository.editProfile(
             profileId,
             displayName,
             bio,

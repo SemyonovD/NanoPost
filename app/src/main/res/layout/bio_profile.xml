@@ -3,8 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
->
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/bio_card"
@@ -33,6 +32,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:background="?colorPrimary"
+                android:scaleType="centerCrop"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:shapeAppearanceOverlay="@style/circular" />
@@ -250,7 +250,7 @@
                 android:insetTop="0dp"
                 android:insetRight="0dp"
                 android:insetBottom="0dp"
-                android:text="Unsubscribe"
+                android:text="@string/unsubscribe"
                 android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
                 android:textColor="?colorPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -328,8 +328,9 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/picked_images_containers"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -337,59 +338,75 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_margin="12dp">
 
+                <TextView
+                    android:id="@+id/text_no_images"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no_images"
+                    android:textColor="?colorOnSurfaceVariant"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:textAppearance="@style/TextAppearance.Material3.LabelMedium"/>
+
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/placeholder1"
-                    android:layout_width="81dp"
-                    android:layout_height="80dp"
+                    android:id="@+id/placeholder00"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
                     android:layout_margin="4dp"
                     android:src="@drawable/img_1"
                     android:scaleType="centerCrop"
                     app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/placeholder2"
-                    app:layout_constraintTop_toBottomOf="@+id/images_label"
+                    app:layout_constraintEnd_toStartOf="@id/placeholder01"
                     app:shapeAppearanceOverlay="@style/rounded" />
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/placeholder2"
-                    android:layout_width="81dp"
-                    android:layout_height="80dp"
+                    android:id="@+id/placeholder01"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
                     android:layout_margin="4dp"
                     android:src="@drawable/img_1"
                     android:scaleType="centerCrop"
                     app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintStart_toEndOf="@id/placeholder00"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline0"
-                    app:layout_constraintTop_toBottomOf="@+id/images_label"
+                    app:layout_constraintEnd_toStartOf="@id/placeholder02"
                     app:shapeAppearanceOverlay="@style/rounded" />
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/placeholder3"
-                    android:layout_width="81dp"
-                    android:layout_height="80dp"
+                    android:id="@+id/placeholder02"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
                     android:layout_margin="4dp"
                     android:src="@drawable/img_1"
                     android:scaleType="centerCrop"
                     app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintStart_toEndOf="@id/placeholder01"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/guideline0"
-                    app:layout_constraintTop_toBottomOf="@+id/images_label"
+                    app:layout_constraintEnd_toStartOf="@id/placeholder03"
                     app:shapeAppearanceOverlay="@style/rounded" />
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/placeholder4"
-                    android:layout_width="81dp"
-                    android:layout_height="80dp"
+                    android:id="@+id/placeholder03"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
                     android:layout_margin="4dp"
                     android:src="@drawable/img_1"
                     android:scaleType="centerCrop"
                     app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintStart_toEndOf="@id/placeholder02"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/placeholder3"
-                    app:layout_constraintTop_toBottomOf="@+id/images_label"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:shapeAppearanceOverlay="@style/rounded" />
 
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

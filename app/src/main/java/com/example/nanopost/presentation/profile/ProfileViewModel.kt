@@ -31,8 +31,14 @@ class ProfileViewModel @Inject constructor(
     private val _ourProfileIdLiveData = MutableLiveData<String?>()
     val ourProfileIdLiveData: LiveData<String?> = _ourProfileIdLiveData
 
+    private val _avatarUriLiveData = MutableLiveData<Uri?>()
+    val avatarUriLiveData: LiveData<Uri?> = _avatarUriLiveData
+
     private val _postsLiveData = MutableLiveData<PagingData<Post>>()
     val postsLiveData: LiveData<PagingData<Post>> = _postsLiveData
+
+    private val _responseLiveData = MutableLiveData<Boolean?>()
+    val responseLiveData: LiveData<Boolean?> = _responseLiveData
 
     fun getProfile(profileId: String?) {
         viewModelScope.launch {
@@ -56,31 +62,33 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
+    fun saveAvatarUri(uri: Uri) {
+        _avatarUriLiveData.value = uri
+    }
     fun editProfile(
         profileId: String?,
         displayName: String?,
-        bio: String?,
-        avatar: Uri?
+        bio: String?
     ) {
         viewModelScope.launch {
-            editProfileUseCase(
+            _responseLiveData.value = editProfileUseCase(
                 profileId,
                 displayName,
                 bio,
-                avatar
+                _avatarUriLiveData.value
             )
         }
     }
 
     fun subscribeProfile(profileId: String) {
         viewModelScope.launch {
-            subscribeProfileUseCase(profileId)
+            _responseLiveData.value = subscribeProfileUseCase(profileId)
         }
     }
 
     fun unsubscribeProfile(profileId: String) {
         viewModelScope.launch {
-            unsubscribeProfileUseCase(profileId)
+            _responseLiveData.value = unsubscribeProfileUseCase(profileId)
         }
     }
 

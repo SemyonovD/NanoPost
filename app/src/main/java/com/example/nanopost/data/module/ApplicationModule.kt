@@ -2,6 +2,7 @@ package com.example.nanopost.data.module
 
 import android.content.ContentResolver
 import android.content.Context
+import android.content.SharedPreferences
 import android.webkit.MimeTypeMap
 import dagger.Module
 import dagger.Provides
@@ -36,5 +37,13 @@ object ApplicationModule {
         @ApplicationContext context: Context,
     ): File {
         return File(context.filesDir, IMAGES_DIR_NAME)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSharedPref(
+        @ApplicationContext appContext: Context
+    ): SharedPreferences {
+        return appContext.getSharedPreferences("SharedPref", Context.MODE_PRIVATE)
     }
 }

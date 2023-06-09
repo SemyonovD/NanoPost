@@ -2,6 +2,8 @@ package com.example.nanopost.presentation.profile
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -21,9 +23,23 @@ class ProfileFragment: Fragment(R.layout.fragment_profile) {
     private val viewModel: ProfileViewModel by viewModels()
     private val args: ProfileFragmentArgs by navArgs()
 
+    private val imagePickerLauncher = registerForActivityResult(
+        ActivityResultContracts.PickVisualMedia()
+    ) { uri ->
+        if (uri != null) {
+            viewModel.saveAvatarUri(uri)
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         viewModel.getProfile(args.profileId)
+
+        viewModel.responseLiveData.observe(viewLifecycleOwner) {
+            if (it == true) {
+                viewModel.getProfile(args.profileId)
+            }
+        }
 
         super.onViewCreated(view, savedInstanceState)
 
@@ -42,7 +58,7 @@ class ProfileFragment: Fragment(R.layout.fragment_profile) {
                             findNavController().navigate(action)
                         }
                         headerAdapter.onEditClick = { list ->
-                            viewModel.editProfile(list[0],list[1],list[2],null)
+                            viewModel.editProfile(list[0],list[1],list[2])
                         }
                         headerAdapter.onSubscribeClick = { string ->
                             viewModel.subscribeProfile(string)
@@ -54,6 +70,13 @@ class ProfileFragment: Fragment(R.layout.fragment_profile) {
                         headerAdapter.onImagesClick = { string ->
                             val action = ProfileFragmentDirections.actionProfileFragmentToImagesFragment(string)
                             findNavController().navigate(action)
+                        }
+                        headerAdapter.onAvatarClick = {
+                            imagePickerLauncher.launch (
+                                PickVisualMediaRequest(
+                                    ActivityResultContracts.PickVisualMedia.ImageOnly
+                                )
+                            )
                         }
                     }
 
@@ -75,12 +98,12 @@ class ProfileFragment: Fragment(R.layout.fragment_profile) {
                 R.id.exit_btn -> {
                     context?.let {
                         MaterialAlertDialogBuilder(it)
-                            .setTitle("Logout")
-                            .setMessage("Are you sure you want to log out?")
-                            .setNegativeButton("Cancel") { dialog, _ ->
+                            .setTitle(R.string.logout)
+                            .setMessage(R.string.confirm_logout)
+                            .setNegativeButton(R.string.cancel) { dialog, _ ->
                                 dialog.cancel()
                             }
-                            .setPositiveButton("Confirm") { _, _ ->
+                            .setPositiveButton(R.string.confirm) { _, _ ->
                                 viewModel.logout()
                                 findNavController().navigate(
                                     ProfileFragmentDirections.actionProfileFragmentToLoginFragment()

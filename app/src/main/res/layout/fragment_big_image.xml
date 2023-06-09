@@ -43,6 +43,7 @@
             android:layout_height="40dp"
             android:layout_margin="16dp"
             android:background="?colorPrimary"
+            android:scaleType="centerCrop"
             app:shapeAppearanceOverlay="@style/circular"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

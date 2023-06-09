@@ -17,21 +17,41 @@ class CreatePostViewModel @Inject constructor(
     private val createPostUseCase: CreatePostUseCase
 ) : ViewModel() {
 
-    private val _imageUriLiveData = MutableLiveData<Uri?>()
-    val imageUriLiveData: LiveData<Uri?> = _imageUriLiveData
+    private val _postResponseLiveData = MutableLiveData<Post?>()
+    val postResponseLiveData: LiveData<Post?> = _postResponseLiveData
 
-    fun saveImageUri(uri: Uri?) {
-        _imageUriLiveData.value = uri
+    private val _imageListLiveData = MutableLiveData<MutableList<Uri>?>()
+    val imageListLiveData: LiveData<MutableList<Uri>?> = _imageListLiveData
+
+    fun saveImageUri(uri: Uri) {
+        if (_imageListLiveData.value != null) {
+            val listUri = _imageListLiveData.value
+            listUri?.add(uri)
+            _imageListLiveData.value = listUri
+        } else {
+            _imageListLiveData.value = mutableListOf(
+                uri,
+            )
+        }
     }
 
-    fun deleteImageUri() {
-        _imageUriLiveData.value = null
+    fun deleteImageUri(index: Int) {
+        val listUri = _imageListLiveData.value
+        listUri?.remove(listUri[index])
+        _imageListLiveData.value = listUri
     }
 
     fun createPost(text: String?) {
         viewModelScope.launch {
-                createPostUseCase(UploadPost(text,_imageUriLiveData.value,null,null) )
+            _postResponseLiveData.value = createPostUseCase (
+                UploadPost (
+                    text,
+                    _imageListLiveData.value?.getOrNull(0),
+                    _imageListLiveData.value?.getOrNull(1),
+                    _imageListLiveData.value?.getOrNull(2),
+                    _imageListLiveData.value?.getOrNull(3),
+                )
+            )
         }
     }
-
 }
